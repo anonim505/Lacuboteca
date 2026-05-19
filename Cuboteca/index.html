@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#060606">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>La Cuboteca | Lounge Bar · Barajas, Madrid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E2C77A;
+  --gold-pale: rgba(201,168,76,0.12);
+  --gold-glow: rgba(201,168,76,0.25);
+  --black: #060606;
+  --black-2: #0E0E0E;
+  --black-3: #141414;
+  --black-4: #1C1C1C;
+  --white: #F5F2EC;
+  --muted: #7A7570;
+  --muted-2: #5A5550;
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'Outfit', sans-serif;
+  --ease: cubic-bezier(.19,1,.22,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: auto;
+}
+
+/* ── CURSOR PERSONALIZADO ── */
+.cursor { display: none; }
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), opacity 0.3s;
+  opacity: 0.7;
+}
+body:hover .cursor { opacity:1; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ── RUIDO / GRANO ── */
+body::before {
+  content:'';
+  position: fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:9998; opacity:0.4;
+}
+
+/* ── TIPOGRAFÍA GLOBAL ── */
+.serif { font-family: var(--serif); }
+h1,h2,h3,h4 { font-family: var(--serif); font-weight:400; }
+.container { max-width: 1240px; margin:0 auto; padding: 0 32px; }
+
+/* ── LÍNEA DECORATIVA ── */
+.line-deco {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+}
+.line-deco::before, .line-deco::after {
+  content:''; flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.line-deco span {
+  font-family: var(--sans); font-size: 0.65rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════
+   NAVEGACIÓN
+═══════════════════════════════════════ */
+nav {
+  position: fixed; top:0; width:100%; z-index: 1000;
+  padding: 28px 0;
+  transition: all 0.6s var(--ease);
+}
+nav.scrolled {
+  padding: 16px 0;
+  background: rgba(6,6,6,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.nav-inner {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.7rem; font-weight: 700;
+  letter-spacing: 6px; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  position: relative;
+}
+.nav-logo::after {
+  content: '·'; color: var(--white); margin: 0 4px; font-weight: 300;
+}
+.nav-logo span { color: var(--white); font-weight: 300; font-size: 1.1rem; letter-spacing: 3px; }
+
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.3s; font-weight: 400;
+  position: relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px;
+  background: var(--gold); transition: width 0.4s var(--ease);
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 10px 24px;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold) !important;
+  font-size: 0.7rem !important; letter-spacing: 2.5px !important;
+  transition: all 0.3s !important;
+}
+.nav-cta:hover { background: var(--gold-pale) !important; border-color: var(--gold) !important; }
+.nav-cta::after { display: none !important; }
+
+.mobile-btn {
+  display: none; background: none; border: none;
+  color: var(--gold); font-size: 1.4rem; cursor: pointer;
+}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  height: 100vh; min-height: 700px;
+  display: grid; place-items: center;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: 
+    linear-gradient(180deg, rgba(6,6,6,0.3) 0%, rgba(6,6,6,0.85) 70%, var(--black) 100%),
+    url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+  transform: scale(1.05);
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+@keyframes slowZoom { to { transform: scale(1); } }
+
+/* Grid de líneas sutiles */
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: 
+    linear-gradient(var(--gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 900px; padding: 0 20px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2.5rem;
+  animation: fadeUp 1s var(--ease) both;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content:''; width: 40px; height: 1px; background: var(--gold); opacity:0.5;
+}
+
+.hero h1 {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 1.0; color: var(--white);
+  font-weight: 300; letter-spacing: -1px;
+  animation: fadeUp 1s 0.15s var(--ease) both;
+  margin-bottom: 1rem;
+}
+.hero h1 em {
+  font-style: italic; color: var(--gold);
+  font-weight: 400;
+}
+
+.hero-sub {
+  font-size: 0.95rem; color: var(--muted);
+  letter-spacing: 2px; font-weight: 300;
+  margin-bottom: 3.5rem;
+  animation: fadeUp 1s 0.3s var(--ease) both;
+}
+
+.hero-actions {
+  display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 1s 0.45s var(--ease) both;
+}
+
+.btn-primary {
+  display: inline-block; padding: 15px 44px;
+  background: var(--gold); color: var(--black);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; font-weight: 600;
+  transition: all 0.4s var(--ease);
+  position: relative; overflow: hidden;
+}
+.btn-primary::before {
+  content:''; position:absolute; inset:0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--ease);
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index:1; }
+
+.btn-ghost {
+  display: inline-block; padding: 14px 44px;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold); font-size: 0.72rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; font-weight: 400;
+  transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(--gold); background: var(--gold-pale); }
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeUp 1s 0.9s var(--ease) both;
+  z-index: 2;
+}
+.scroll-hint span {
+  font-size: 0.6rem; letter-spacing: 4px; color: var(--muted); text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(var(--gold), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity:0.3; transform: scaleY(1); }
+  50% { opacity:1; transform: scaleY(0.6); }
+}
+
+/* Contador de stats */
+.hero-stats {
+  position: absolute; bottom: 60px; right: 60px;
+  display: flex; gap: 48px; z-index: 2;
+  animation: fadeUp 1s 0.6s var(--ease) both;
+}
+.stat-item { text-align: right; }
+.stat-num {
+  font-family: var(--serif); font-size: 2.4rem; color: var(--gold);
+  font-weight: 600; line-height: 1; display: block;
+}
+.stat-label {
+  font-size: 0.6rem; letter-spacing: 3px; color: var(--muted);
+  text-transform: uppercase; display: block; margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════
+   BANDA MARQUEE
+═══════════════════════════════════════ */
+.marquee-band {
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  background: var(--black-2);
+  padding: 18px 0; overflow: hidden;
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 20px;
+  padding: 0 32px;
+  font-size: 0.65rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--muted); font-weight: 400;
+}
+.marquee-item i { color: var(--gold); font-size: 0.55rem; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ═══════════════════════════════════════
+   SECCIÓN SOBRE NOSOTROS
+═══════════════════════════════════════ */
+.about {
+  padding: 120px 0;
+  display: grid;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-img-wrap {
+  position: relative; overflow: hidden;
+}
+.about-img-wrap img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  filter: sepia(20%) contrast(1.05);
+  transition: transform 0.8s var(--ease);
+}
+.about-img-wrap:hover img { transform: scale(1.04); }
+
+.about-gold-border {
+  position: absolute; bottom: -20px; right: -20px;
+  width: 60%; height: 60%;
+  border: 1px solid rgba(201,168,76,0.3);
+  pointer-events: none;
+}
+.about-badge {
+  position: absolute; top: 32px; right: -20px;
+  background: var(--black);
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 20px 24px; text-align: center;
+}
+.about-badge .num {
+  font-family: var(--serif); font-size: 2.8rem; color: var(--gold); font-weight: 600;
+  display: block; line-height: 1;
+}
+.about-badge .lbl {
+  font-size: 0.6rem; letter-spacing: 3px; color: var(--muted);
+  text-transform: uppercase; display: block; margin-top: 6px;
+}
+
+.about-text .eyebrow {
+  font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 20px; font-weight: 400;
+}
+.about-text h2 {
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1.1; margin-bottom: 32px;
+  font-weight: 300;
+}
+.about-text h2 em { font-style: italic; color: var(--gold); }
+.about-text p {
+  color: var(--muted); line-height: 1.9; margin-bottom: 20px;
+  font-weight: 300; font-size: 1rem;
+}
+.about-text .signature {
+  font-family: var(--serif); font-size: 1.8rem; font-style: italic;
+  color: var(--gold-light); margin-top: 32px; display: block;
+}
+
+/* ═══════════════════════════════════════
+   CUBOS ESPECIALES
+═══════════════════════════════════════ */
+.offers { padding: 100px 0; background: var(--black-2); overflow: hidden; }
+
+.section-header { text-align: center; margin-bottom: 72px; }
+.section-header h2 {
+  font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300;
+  line-height: 1.1; margin-bottom: 12px;
+}
+.section-header h2 em { font-style: italic; color: var(--gold); }
+.section-header p {
+  font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--muted);
+}
+
+.offers-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.offer-card {
+  position: relative; overflow: hidden; cursor: pointer;
+  aspect-ratio: 3/4;
+  background: var(--black-3);
+}
+.offer-card img {
+  width:100%; height:100%; object-fit: cover;
+  transition: transform 0.8s var(--ease), filter 0.5s;
+  filter: brightness(0.7) contrast(1.1);
+}
+.offer-card:hover img { transform: scale(1.08); filter: brightness(0.5) contrast(1.1); }
+
+.offer-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(6,6,6,0.95) 0%, rgba(6,6,6,0.2) 60%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 40px 36px;
+  transition: background 0.5s;
+}
+
+.offer-tag {
+  display: inline-block; margin-bottom: 12px;
+  font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(201,168,76,0.4);
+  padding: 5px 14px; width: fit-content;
+}
+.offer-card h3 {
+  font-size: 1.9rem; color: var(--white); font-weight: 400;
+  margin-bottom: 8px; line-height: 1.1;
+}
+.offer-desc {
+  color: var(--muted); font-size: 0.88rem; line-height: 1.6; font-weight: 300;
+  transform: translateY(20px); opacity: 0;
+  transition: all 0.5s var(--ease);
+  margin-bottom: 16px;
+}
+.offer-price {
+  font-family: var(--serif); font-size: 2rem; color: var(--gold);
+  font-weight: 600;
+}
+.offer-card:hover .offer-desc { transform: translateY(0); opacity: 1; }
+
+/* ═══════════════════════════════════════
+   CARTA / MENÚ (REDISEÑO MEJORADO)
+═══════════════════════════════════════ */
+.menu-section { 
+  padding: 120px 0; 
+  background-color: var(--black);
+  position: relative;
+}
+
+/* Efecto de luz difusa detrás del menú */
+.menu-section::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.menu-section .container { position: relative; z-index: 1; }
+
+.menu-tabs {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 70px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.menu-tab {
+  padding: 14px 40px; background: none; border: none;
+  font-family: var(--sans); font-size: 0.75rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.3s; position: relative;
+  font-weight: 500;
+}
+.menu-tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 2px;
+  background: var(--gold); transition: width 0.4s var(--ease);
+}
+.menu-tab.active { color: var(--gold); }
+.menu-tab.active::after { width: 100%; }
+.menu-tab:hover { color: var(--white); }
+
+/* Animación de entrada para los paneles */
+.menu-pane { 
+  display: none; 
+  max-width: 900px;
+  margin: 0 auto;
+}
+.menu-pane.active { 
+  display: block; 
+  animation: fadeInMenu 0.6s var(--ease) forwards;
+}
+
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.drink-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.drink-category-label {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  color: var(--gold-light);
+  margin-top: 40px;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  font-style: italic;
+}
+.drink-category-label::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 15px auto 0;
+  opacity: 0.5;
+}
+.drink-list .drink-category-label:first-child { margin-top: 0; }
+
+.drink-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.drink-row:hover { transform: translateX(8px); }
+
+.drink-info {
+  display: flex;
+  flex-direction: column;
+  background: var(--black); 
+  padding-right: 15px;
+  z-index: 2;
+  max-width: 80%;
+}
+
+.drink-name {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--white);
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.drink-desc {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.drink-price {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-weight: 600;
+  background: var(--black);
+  padding-left: 15px;
+  z-index: 2;
+}
+
+.drink-row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 18px; 
+  width: 100%;
+  border-bottom: 1px dotted rgba(201,168,76,0.3);
+  z-index: 1;
+}
+
+.drink-row--highlight .drink-name { color: var(--gold); }
+.drink-row--highlight .drink-price { color: var(--white); font-style: italic; font-weight: 400;}
+
+/* ═══════════════════════════════════════
+   GALERÍA DE FOTOS DEL LOCAL
+═══════════════════════════════════════ */
+.fotos-local { padding: 100px 0; background: var(--black-2); }
+
+.photos-upload-zone {
+  border: 1px dashed rgba(201,168,76,0.25);
+  padding: 52px; text-align: center; margin-bottom: 40px;
+  background: rgba(201,168,76,0.02);
+  transition: border-color 0.3s, background 0.3s;
+  cursor: pointer;
+}
+.photos-upload-zone:hover, .photos-upload-zone.drag-over {
+  border-color: var(--gold); background: rgba(201,168,76,0.05);
+}
+.photos-upload-zone i { font-size: 2rem; color: rgba(201,168,76,0.4); margin-bottom: 16px; display: block; }
+.photos-upload-zone p { font-size: 0.8rem; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+.photos-upload-zone small { font-size: 0.75rem; color: var(--muted-2); display: block; margin-top: 8px; }
+#photoFileInput { display: none; }
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 280px;
+  gap: 6px;
+}
+
+.photo-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+.photo-item:nth-child(2) { grid-column: span 5; grid-row: span 1; }
+.photo-item:nth-child(3) { grid-column: span 5; grid-row: span 1; }
+.photo-item:nth-child(4) { grid-column: span 2; }
+.photo-item:nth-child(5) { grid-column: span 3; }
+.photo-item:nth-child(6) { grid-column: span 2; }
+.photo-item:nth-child(7) { grid-column: span 3; }
+.photo-item:nth-child(8) { grid-column: span 2; }
+
+.photo-item {
+  position: relative; overflow: hidden; background: var(--black-4);
+  cursor: pointer;
+}
+.photo-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.7s var(--ease), filter 0.4s;
+  display: block;
+}
+.photo-item:hover img { transform: scale(1.06); filter: brightness(0.6); }
+.photo-item-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px;
+  opacity: 0; transition: opacity 0.35s;
+  background: rgba(6,6,6,0.45);
+}
+.photo-item:hover .photo-item-overlay { opacity: 1; }
+.photo-item-overlay i { font-size: 1.8rem; color: var(--white); }
+.photo-item-overlay span {
+  font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.96);
+  display: none; align-items: center; justify-content: center;
+  gap: 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox-img-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+.lightbox img { max-width: 80vw; max-height: 85vh; object-fit: contain; display: block; }
+.lightbox-counter {
+  position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
+  font-size: 0.65rem; letter-spacing: 3px; color: var(--muted); text-transform: uppercase;
+}
+.lightbox-close {
+  position: fixed; top: 24px; right: 32px;
+  font-size: 2rem; color: var(--gold); cursor: pointer;
+  background: none; border: none; line-height: 1; z-index: 9001;
+  transition: color 0.3s;
+}
+.lightbox-close:hover { color: var(--white); }
+.lightbox-nav {
+  background: none; border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold); font-size: 1.2rem; cursor: pointer;
+  width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.3s; z-index: 9001;
+}
+.lightbox-nav:hover { background: var(--gold-pale); border-color: var(--gold); }
+
+/* ═══════════════════════════════════════
+   EXPERIENCIA / CIFRAS
+═══════════════════════════════════════ */
+.experience {
+  padding: 120px 0;
+  background: 
+    linear-gradient(rgba(6,6,6,0.9), rgba(6,6,6,0.96)),
+    url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1920&auto=format&fit=crop') center/cover fixed;
+}
+.experience-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 100px; align-items: center; }
+.experience-text .eyebrow {
+  font-size: 0.65rem; letter-spacing: 5px; color: var(--gold);
+  text-transform: uppercase; display: block; margin-bottom: 20px;
+}
+.experience-text h2 {
+  font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1;
+}
+.experience-text h2 em { font-style: italic; color: var(--gold); }
+.experience-text p {
+  color: var(--muted); margin-top: 24px; line-height: 1.9; font-size: 1rem; font-weight: 300;
+}
+
+.counters-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 40px; }
+.counter-item {
+  padding: 40px 36px;
+  border: 1px solid rgba(201,168,76,0.12);
+  background: rgba(201,168,76,0.03);
+  transition: border-color 0.3s, background 0.3s;
+}
+.counter-item:hover {
+  border-color: rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.06);
+}
+.counter-item .big-num {
+  font-family: var(--serif); font-size: 4rem; color: var(--gold);
+  font-weight: 600; line-height: 1; display: block; margin-bottom: 8px;
+}
+.counter-item .counter-label {
+  font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+}
+
+/* ═══════════════════════════════════════
+   TESTIMONIOS
+═══════════════════════════════════════ */
+.testimonials { padding: 120px 0; }
+
+.testimonials-slider {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.test-card {
+  background: var(--black-2); padding: 52px 44px;
+  position: relative; overflow: hidden;
+  transition: background 0.4s;
+}
+.test-card::before {
+  content: '\201C';
+  font-family: var(--serif); font-size: 8rem; color: rgba(201,168,76,0.06);
+  position: absolute; top: 20px; left: 28px; line-height: 1;
+  pointer-events: none;
+}
+.test-card:hover { background: var(--black-3); }
+
+.test-stars { margin-bottom: 24px; }
+.test-stars i { color: var(--gold); font-size: 0.7rem; margin-right: 3px; }
+.test-text {
+  font-family: var(--serif); font-size: 1.05rem; color: var(--white);
+  line-height: 1.85; margin-bottom: 32px; font-weight: 300; font-style: italic;
+  position: relative; z-index: 1;
+}
+.test-author {
+  font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+}
+.test-role { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+/* ═══════════════════════════════════════
+   RESERVAS / CONTACTO
+═══════════════════════════════════════ */
+.contact { padding: 120px 0; background: var(--black-2); }
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+}
+.contact-info .eyebrow {
+  font-size: 0.65rem; letter-spacing: 5px; color: var(--gold);
+  text-transform: uppercase; display: block; margin-bottom: 24px;
+}
+.contact-info h2 {
+  font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1;
+  margin-bottom: 32px;
+}
+.contact-info h2 em { font-style: italic; color: var(--gold); }
+.contact-info p { color: var(--muted); line-height: 1.9; font-size: 1rem; font-weight: 300; margin-bottom: 48px; }
+
+.contact-items { display: flex; flex-direction: column; gap: 32px; }
+.contact-item { display: flex; gap: 24px; align-items: flex-start; }
+.contact-item .icon-box {
+  width: 48px; height: 48px; border: 1px solid rgba(201,168,76,0.25);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.contact-item .icon-box i { color: var(--gold); font-size: 1rem; }
+.contact-item h4 {
+  font-family: var(--sans); font-size: 0.65rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 500;
+}
+.contact-item p, .contact-item a {
+  color: var(--muted); font-size: 0.95rem; line-height: 1.7; text-decoration: none;
+}
+.contact-item a:hover { color: var(--white); }
+
+.contact-cta-box {
+  background: var(--black-3); padding: 60px 52px;
+  border: 1px solid rgba(201,168,76,0.15);
+  display: flex; flex-direction: column; gap: 36px;
+}
+.whatsapp-btn {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 32px; background: var(--gold);
+  text-decoration: none; transition: background 0.3s;
+}
+.whatsapp-btn:hover { background: var(--gold-light); }
+.whatsapp-btn i { font-size: 1.5rem; color: var(--black); }
+.whatsapp-btn-text span {
+  display: block; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(6,6,6,0.6); font-weight: 500;
+}
+.whatsapp-btn-text strong {
+  font-size: 1rem; color: var(--black); font-weight: 600; letter-spacing: 1px;
+}
+.contact-note {
+  font-size: 0.82rem; color: var(--muted); line-height: 1.7;
+  font-style: italic; font-family: var(--serif);
+}
+
+/* MAPA */
+.map-wrap {
+  margin-top: 0; line-height: 0;
+  border: 1px solid rgba(201,168,76,0.1);
+}
+.map-wrap iframe {
+  width: 100%; height: 320px; border: none;
+  filter: invert(88%) hue-rotate(195deg) brightness(75%) contrast(90%);
+  display: block;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER SOCIAL MEJORADO
+═══════════════════════════════════════ */
+.footer-social-big {
+  display: flex; justify-content: center; gap: 24px; margin-bottom: 48px;
+}
+.social-big-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 36px;
+  border: 1px solid rgba(201,168,76,0.2);
+  text-decoration: none; color: var(--white);
+  transition: all 0.4s var(--ease);
+  background: transparent; min-width: 220px; justify-content: center;
+}
+.social-big-btn:hover { border-color: var(--gold); background: var(--gold-pale); }
+.social-big-btn.ig:hover { border-color: #e1306c; background: rgba(225,48,108,0.08); }
+.social-big-btn.ig:hover .social-big-btn-icon { color: #e1306c; }
+.social-big-btn.wa:hover { border-color: #25d366; background: rgba(37,211,102,0.08); }
+.social-big-btn.wa:hover .social-big-btn-icon { color: #25d366; }
+.social-big-btn-icon { font-size: 1.6rem; transition: color 0.3s; color: var(--gold); }
+.social-big-btn-text span { display: block; font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.social-big-btn-text strong { font-size: 0.95rem; font-weight: 500; display: block; margin-top: 2px; }
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer {
+  background: #030303; padding: 60px 0 40px;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.footer-inner {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 40px; align-items: center; margin-bottom: 48px;
+}
+.footer-logo-area { text-align: left; }
+.footer-logo {
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 700;
+  letter-spacing: 6px; color: var(--gold);
+  text-decoration: none; display: block; text-transform: uppercase;
+}
+.footer-tagline {
+  font-size: 0.62rem; letter-spacing: 4px; color: var(--muted-2);
+  text-transform: uppercase; margin-top: 6px; display: block;
+}
+
+.footer-center { text-align: center; }
+.footer-info-block {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 32px 40px;
+  border: 1px solid rgba(201,168,76,0.12);
+  background: rgba(201,168,76,0.03);
+}
+.footer-info-item {
+  display: flex; align-items: center; gap: 12px; justify-content: center;
+}
+.footer-info-item i { color: var(--gold); font-size: 0.85rem; width: 16px; text-align: center; flex-shrink: 0; }
+.footer-info-item span, .footer-info-item a {
+  font-size: 0.78rem; letter-spacing: 1.5px; color: var(--muted);
+  text-decoration: none; transition: color 0.3s;
+}
+.footer-info-item a:hover { color: var(--gold); }
+
+.footer-social { text-align: right; }
+.footer-social a {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border: 1px solid rgba(201,168,76,0.2);
+  color: var(--muted); font-size: 1.1rem; text-decoration: none;
+  margin-left: 12px; transition: all 0.3s;
+}
+.footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.04); padding-top: 32px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom p { font-size: 0.72rem; letter-spacing: 2px; color: var(--muted-2); }
+
+/* ═══════════════════════════════════════
+   OCIO & ENTRETENIMIENTO
+═══════════════════════════════════════ */
+.ocio { padding: 120px 0; background: var(--black); }
+
+.ocio-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-bottom: 80px;
+}
+.ocio-card {
+  background: var(--black-3);
+  padding: 56px 44px;
+  position: relative; overflow: hidden;
+  transition: background 0.4s, transform 0.4s var(--ease);
+  border-top: 2px solid transparent;
+}
+.ocio-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px;
+  background: var(--gold); transition: width 0.5s var(--ease);
+}
+.ocio-card:hover::before { width: 100%; }
+.ocio-card:hover { background: var(--black-4); transform: translateY(-6px); }
+
+.ocio-icon {
+  width: 64px; height: 64px; border: 1px solid rgba(201,168,76,0.25);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 28px; transition: border-color 0.3s, background 0.3s;
+}
+.ocio-card:hover .ocio-icon { border-color: var(--gold); background: var(--gold-pale); }
+.ocio-icon i { font-size: 1.6rem; color: var(--gold); }
+.ocio-card h3 { font-size: 1.7rem; color: var(--white); margin-bottom: 12px; font-weight: 400; }
+.ocio-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.8; font-weight: 300; }
+
+/* Franja de fiestas privadas */
+.fiestas-banner {
+  background: var(--black-2);
+  border: 1px solid rgba(201,168,76,0.2);
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 60px; align-items: center;
+  padding: 64px 72px;
+  position: relative; overflow: hidden;
+}
+.fiestas-banner::after {
+  content: 'PRIVADO';
+  position: absolute; right: -30px; top: 28px;
+  font-size: 0.55rem; letter-spacing: 6px; color: rgba(201,168,76,0.08);
+  font-weight: 700; transform: rotate(90deg); pointer-events: none;
+}
+.fiestas-text .eyebrow {
+  font-size: 0.62rem; letter-spacing: 5px; color: var(--gold);
+  text-transform: uppercase; display: block; margin-bottom: 16px;
+}
+.fiestas-text h3 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.1;
+  margin-bottom: 16px;
+}
+.fiestas-text h3 em { font-style: italic; color: var(--gold); }
+.fiestas-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; font-weight: 300; max-width: 520px; }
+
+.fiestas-types {
+  display: flex; flex-direction: column; gap: 12px; min-width: 220px;
+}
+.fiesta-tag {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 20px;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.03);
+  transition: border-color 0.3s, background 0.3s;
+}
+.fiesta-tag:hover { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.07); }
+.fiesta-tag i { color: var(--gold); font-size: 0.9rem; width: 16px; text-align: center; }
+.fiesta-tag span { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--white); font-weight: 400; }
+
+/* ═══════════════════════════════════════
+   REVEAL ANIMATIONS
+═══════════════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.reveal.up { transform: translateY(50px); }
+.reveal.left { transform: translateX(-50px); }
+.reveal.right { transform: translateX(50px); }
+.reveal.scale { transform: scale(0.92); }
+.reveal.active { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   BANNER AMBIENTE
+═══════════════════════════════════════ */
+.vibe-banner {
+  position: relative; padding: 100px 0; overflow: hidden;
+}
+.vibe-bg {
+  position: absolute; inset: 0;
+  background: var(--black-2);
+  border-top: 1px solid rgba(201,168,76,0.1);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.vibe-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.vibe-tag {
+  display: inline-block; font-size: 0.62rem; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+  border-left: 2px solid var(--gold); padding-left: 14px;
+}
+.vibe-left h2 {
+  font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; color: var(--white);
+}
+.vibe-left h2 em { font-style: italic; color: var(--gold); }
+.vibe-right {
+  display: flex; flex-direction: column; gap: 20px;
+}
+.vibe-item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 24px;
+  border: 1px solid rgba(201,168,76,0.12);
+  background: rgba(201,168,76,0.03);
+  transition: border-color 0.3s, background 0.3s;
+}
+.vibe-item:hover { border-color: rgba(201,168,76,0.35); background: rgba(201,168,76,0.07); }
+.vibe-item i { color: var(--gold); font-size: 1.1rem; width: 20px; text-align: center; flex-shrink: 0; }
+.vibe-item span { font-size: 0.88rem; color: var(--white); font-weight: 300; letter-spacing: 1px; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 52px; }
+  .about-image { order: -1; }
+  .about-gold-border { display: none; }
+  .about-badge { right: 12px; }
+  .experience-grid { grid-template-columns: 1fr; gap: 52px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 52px; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; gap: 28px; }
+  .footer-logo-area, .footer-social { text-align: center; }
+  .footer-social a { margin: 0 6px; }
+  .footer-info-block { align-items: center; }
+  .hero-stats { display: none; }
+  .vibe-inner { grid-template-columns: 1fr; gap: 40px; }
+  .fiestas-banner { grid-template-columns: 1fr; gap: 36px; padding: 48px 36px; }
+  .footer-social-big { flex-direction: column; align-items: center; }
+  .offers-row { grid-template-columns: 1fr; }
+  .offer-card { aspect-ratio: 16/9; }
+  .offer-desc { opacity: 1; transform: none; }
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-slider { grid-template-columns: 1fr; }
+  .counters-grid { grid-template-columns: repeat(2, 1fr); }
+  .ocio-grid { grid-template-columns: 1fr; }
+}
+
+/* MÓVIL */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  .container { padding: 0 18px; }
+
+  /* NAV */
+  .nav-links {
+    position: fixed; top: 0; left: -100%; width: 100%; height: 100vh;
+    background: rgba(6,6,6,0.99);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px; transition: left 0.45s var(--ease); z-index: 999;
+    padding-top: 80px;
+  }
+  .nav-links.open { left: 0; }
+  .nav-links a { font-size: 1.1rem; letter-spacing: 4px; color: var(--white); }
+  .nav-cta { border: 1px solid rgba(201,168,76,0.4) !important; padding: 12px 32px !important; }
+  .mobile-btn { display: block; z-index: 1001; position: relative; }
+  .nav-logo { font-size: 1.3rem; letter-spacing: 3px; }
+  .nav-logo span { font-size: 0.9rem; }
+
+  /* HERO */
+  .hero h1 { font-size: clamp(2.2rem, 8vw, 3rem); letter-spacing: 0; }
+  .hero-sub { font-size: 0.78rem; letter-spacing: 1px; }
+  .hero-actions { flex-direction: column; align-items: center; gap: 14px; }
+  .btn-primary, .btn-ghost { width: 100%; max-width: 300px; text-align: center; padding: 16px 20px; }
+  .hero-eyebrow { font-size: 0.58rem; }
+  .scroll-hint { display: none; }
+
+  /* SECCIONES */
+  .about { padding: 72px 0; }
+  .about-grid { gap: 40px; }
+  .about-text h2 { font-size: clamp(2rem, 7vw, 2.8rem); }
+  .offers { padding: 64px 0; }
+  .menu-section { padding: 72px 0; }
+  .ocio { padding: 72px 0; }
+  .fotos-local { padding: 72px 0; }
+  .experience { padding: 72px 0; }
+  .testimonials { padding: 72px 0; }
+  .contact { padding: 72px 0; }
+  .vibe-banner { padding: 64px 0; }
+
+  /* SECTION HEADERS */
+  .section-header { margin-bottom: 44px; }
+  .section-header h2 { font-size: clamp(2rem, 8vw, 2.8rem); }
+
+  /* CUBOS */
+  .offers-row { grid-template-columns: 1fr; gap: 3px; }
+  .offer-card { aspect-ratio: 4/3; }
+  .offer-overlay { padding: 24px 20px; }
+  .offer-card h3 { font-size: 1.5rem; }
+  .offer-desc { opacity: 1; transform: none; margin-bottom: 10px; }
+  .offer-price { font-size: 1.6rem; }
+
+  /* CARTA (Ajustes móvil para el diseño en lista) */
+  .menu-tabs {
+    overflow-x: auto; justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 40px;
+  }
+  .menu-tabs::-webkit-scrollbar { display: none; }
+  .menu-tab { padding: 12px 24px; font-size: 0.65rem; white-space: nowrap; }
+  
+  .drink-category-label { font-size: 1.8rem; margin-top: 30px; margin-bottom: 20px; }
+  .drink-row { flex-direction: row; flex-wrap: wrap; align-items: flex-start; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px;}
+  .drink-row::after { display: none; }
+  .drink-info { max-width: 100%; padding-right: 0; background: transparent;}
+  .drink-price { width: 100%; text-align: right; margin-top: 4px; padding-left: 0; background: transparent; font-size: 1.2rem;}
+
+  /* GALERÍA FOTOS */
+  .photos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 160px;
+    gap: 4px;
+  }
+  .photo-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+  .photo-item:nth-child(2),
+  .photo-item:nth-child(3),
+  .photo-item:nth-child(4),
+  .photo-item:nth-child(5),
+  .photo-item:nth-child(6),
+  .photo-item:nth-child(7),
+  .photo-item:nth-child(8) { grid-column: span 1; grid-row: span 1; }
+  .photo-item-overlay { opacity: 1; background: rgba(6,6,6,0.2); }
+  .photo-item-overlay i { font-size: 1.2rem; }
+  .photo-item-overlay span { display: none; }
+
+  /* LIGHTBOX MÓVIL */
+  .lightbox { flex-direction: column; gap: 16px; padding: 20px; }
+  .lightbox img { max-width: 95vw; max-height: 70vh; }
+  .lightbox-nav { width: 44px; height: 44px; font-size: 1rem; }
+  .lightbox-prev { position: fixed; left: 12px; top: 50%; transform: translateY(-50%); }
+  .lightbox-next { position: fixed; right: 12px; top: 50%; transform: translateY(-50%); }
+  .lightbox-counter { bottom: -24px; font-size: 0.6rem; }
+
+  /* OCIO */
+  .ocio-grid { grid-template-columns: 1fr; gap: 3px; }
+  .ocio-card { padding: 36px 28px; }
+  .fiestas-banner { padding: 36px 24px; gap: 32px; }
+  .fiestas-text h3 { font-size: 1.6rem; }
+
+  /* EXPERIENCIA */
+  .experience-grid { gap: 40px; }
+  .counters-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+  .counter-item { padding: 28px 20px; }
+
+  /* TESTIMONIOS */
+  .testimonials-slider { grid-template-columns: 1fr; gap: 3px; }
+  .test-card { padding: 36px 28px; }
+
+  /* CONTACTO */
+  .contact-cta-box { padding: 36px 24px; gap: 24px; }
+  .whatsapp-btn { padding: 16px 20px; }
+  .map-wrap iframe { height: 240px; }
+
+  /* VIBE BANNER */
+  .vibe-inner { grid-template-columns: 1fr; gap: 32px; }
+  .vibe-item { padding: 14px 18px; }
+
+  /* FOOTER */
+  .footer-social-big { flex-direction: column; align-items: stretch; padding: 0 18px; }
+  .social-big-btn { min-width: unset; width: 100%; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+  .footer-logo-area, .footer-social { text-align: center; }
+  .footer-info-block { padding: 24px 20px; }
+  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+
+  /* NOSOTROS */
+  .about-text .signature { font-size: 1.4rem; }
+
+  /* MARCA */
+  .marquee-item { padding: 0 20px; font-size: 0.6rem; }
+}
+
+/* MÓVIL PEQUEÑO */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 2rem; }
+  .photos-grid { grid-auto-rows: 130px; }
+  .counters-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor">
+  <div class="cursor-ring" id="cursorRing"></div>
+</div>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#inicio" class="nav-logo">La Cuboteca <span>Barajas</span></a>
+    <button class="mobile-btn" id="mobileBtn" aria-label="Menú">
+      <i class="fas fa-bars" id="mobileIcon"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#ofertas">Cubos</a></li>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="#ocio">Ocio</a></li>
+      <li><a href="#galeria">El Local</a></li>
+      <li><a href="#contacto" class="nav-cta">Reservar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>Lounge Bar · Barajas · Madrid</span>
+    </div>
+    <h1 class="serif">La <em>experiencia</em><br>que buscabas</h1>
+    <p class="hero-sub">Destilados de autor · Cervezas de importación · Ambiente selecto</p>
+    <div class="hero-actions">
+      <a href="#carta" class="btn-primary"><span>Ver Carta Completa</span></a>
+      <a href="#contacto" class="btn-ghost">Reservar Mesa</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">4,1★</span>
+      <span class="stat-label">Valoración Google</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">19h</span>
+      <span class="stat-label">Abrimos cada día</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Descubrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span class="marquee-item"><i class="fas fa-circle"></i> Cervezas de Importación</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Destilados Premium</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Cubos Especiales</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Ambiente Lounge</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Reserva por WhatsApp</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Barajas, Madrid</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Desde las 19h</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Atención Personalizada</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Cervezas de Importación</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Destilados Premium</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Cubos Especiales</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Ambiente Lounge</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Reserva por WhatsApp</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Barajas, Madrid</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Desde las 19h</span>
+    <span class="marquee-item"><i class="fas fa-circle"></i> Atención Personalizada</span>
+  </div>
+</div>
+
+<section class="about" id="nosotros">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal left">
+        <div class="about-img-wrap">
+          <img src="Imagenes/Local.jpeg" alt="Interior La Cuboteca" onerror="this.src='https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=800&auto=format&fit=crop'">
+          <div class="about-gold-border"></div>
+        </div>
+        <div class="about-badge">
+          <span class="num">4,1★</span>
+          <span class="lbl">Clientes felices</span>
+        </div>
+      </div>
+      <div class="about-text reveal right">
+        <span class="eyebrow">Nuestra historia</span>
+        <h2>El lounge<br>más <em>auténtico</em><br>de Barajas</h2>
+        <p>La Cuboteca nació con una visión clara: crear un espacio donde cada detalle transmite exclusividad sin perder la calidez de lo cercano. Un rincón de Madrid donde la noche empieza bien.</p>
+        <p>Nuestro dueño Sergio cuida personalmente cada visita, asegurando que cada cliente se sienta como en casa. Las mejores cervezas de importación, destilados cuidadosamente seleccionados y una atmósfera que lo dice todo.</p>
+        <p>Desde las 19h, de lunes a domingo. Siempre con una sonrisa y el cubo más frío de Barajas.</p>
+        <span class="signature">— Sergio</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="offers" id="ofertas">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="line-deco"><span>Nuestras especialidades</span></div>
+      <h2 class="serif">Cubos <em>Especiales</em></h2>
+      <p>Las mejores opciones para compartir esta noche</p>
+    </div>
+    <div class="offers-row">
+      <div class="offer-card reveal reveal-delay-1">
+        <img src="Imagenes/cuboestrellagalicia.jpeg" alt="Cubo Estrella Galicia" onerror="this.src='https://images.unsplash.com/photo-1535958636474-b021ee887b13?q=80&w=800&auto=format&fit=crop'">
+        <div class="offer-overlay">
+          <h3 class="serif">Cubo Estrella Galicia</h3>
+          <p class="offer-desc">Botellines Mini bien fríos. La opción ideal y refrescante para empezar la noche con amigos.</p>
+          <span class="offer-price">10 €</span>
+        </div>
+      </div>
+      <div class="offer-card reveal reveal-delay-2">
+        <img src="Imagenes/cubo1870.jpeg" alt="Cubo 18/70 La Rubia" onerror="this.src='https://images.unsplash.com/photo-1566633806327-68e152aaf26d?q=80&w=800&auto=format&fit=crop'">
+        <div class="offer-overlay">
+          <h3 class="serif">Cubo 18/70 La Rubia</h3>
+          <p class="offer-desc">Cerveza con cuerpo, auténtica y con carácter. Para los paladares más exigentes.</p>
+          <span class="offer-price">12 €</span>
+        </div>
+      </div>
+      <div class="offer-card reveal reveal-delay-3">
+        <img src="Imagenes/CuboElaguila.jpeg" alt="Cubo El Águila" onerror="this.src='https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?q=80&w=800&auto=format&fit=crop'">
+        <div class="offer-overlay">
+          <h3 class="serif">Cubo El Águila</h3>
+          <p class="offer-desc">El Águila Dorada. Todo el sabor y frescura en un cubo perfecto para tu mesa.</p>
+          <span class="offer-price">10 €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="carta">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="line-deco"><span>Selección La Cuboteca</span></div>
+      <h2 class="serif">Nuestra <em>Carta</em></h2>
+      <p>Cervezas especiales, copas y cócteles de autor</p>
+    </div>
+
+    <div class="menu-tabs" role="tablist">
+      <button class="menu-tab active" data-tab="cervezas" role="tab" aria-selected="true">Cervezas</button>
+      <button class="menu-tab" data-tab="copas" role="tab" aria-selected="false">Copas</button>
+      <button class="menu-tab" data-tab="mixologia" role="tab" aria-selected="false">Cócteles</button>
+    </div>
+
+    <div class="menu-pane active" id="pane-cervezas">
+      <div class="drink-list">
+
+        <div class="drink-category-label">Caña & Botellines</div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Caña de Cerveza</span>
+            <span class="drink-desc">Rubia de presión, bien fría y con buena espuma</span>
+          </div>
+          <span class="drink-price">1,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Caña IPA</span>
+            <span class="drink-desc">India Pale Ale de presión, amarga y aromática</span>
+          </div>
+          <span class="drink-price">2,00 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Doble Rubia</span>
+            <span class="drink-desc">Jarra de cerveza rubia, el doble de buena</span>
+          </div>
+          <span class="drink-price">2,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Doble IPA</span>
+            <span class="drink-desc">Jarra de IPA para los que saben lo que quieren</span>
+          </div>
+          <span class="drink-price">3,00 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Alhambra 1/3</span>
+            <span class="drink-desc">Botellín Alhambra Reserva 1925, cerveza con carácter</span>
+          </div>
+          <span class="drink-price">3,50 €</span>
+        </div>
+
+        <div class="drink-category-label">Importación</div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">18/70 Botellines</span>
+            <span class="drink-desc">Cerveza artesana con cuerpo y carácter. Para paladares exigentes</span>
+          </div>
+          <span class="drink-price">3,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Estrella Galicia</span>
+            <span class="drink-desc">Botellín clásico, refrescante y siempre bien frío</span>
+          </div>
+          <span class="drink-price">2,00 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">El Águila</span>
+            <span class="drink-desc">Botellín El Águila Dorada, el clásico madrileño</span>
+          </div>
+          <span class="drink-price">2,00 €</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="menu-pane" id="pane-copas">
+      <div class="drink-list">
+
+        <div class="drink-category-label">Copas Clásicas</div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Copa Estándar</span>
+            <span class="drink-desc">Ron, ginebra, vodka, whisky o similar con tu refresco favorito</span>
+          </div>
+          <span class="drink-price">7,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Copa Medium</span>
+            <span class="drink-desc">Destilado de gama media con presentación cuidada</span>
+          </div>
+          <span class="drink-price">8,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Copa Premium</span>
+            <span class="drink-desc">Destilado premium seleccionado, la experiencia completa</span>
+          </div>
+          <span class="drink-price">9,50 €</span>
+        </div>
+
+        <div class="drink-category-label">Especialidades</div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Izaguirre</span>
+            <span class="drink-desc">Vermú Izaguirre, sírvete solo o con hielo y naranja</span>
+          </div>
+          <span class="drink-price">3,50 €</span>
+        </div>
+
+        <div class="drink-row drink-row--highlight reveal">
+          <div class="drink-info">
+            <span class="drink-name">Copas de Autor de la Casa <i class="fas fa-star"></i></span>
+            <span class="drink-desc">Pregunta a Sergio por las referencias de temporada — siempre hay algo que sorprende</span>
+          </div>
+          <span class="drink-price">Consultar</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="menu-pane" id="pane-mixologia">
+      <div class="drink-list">
+
+        <div class="drink-category-label">Cócteles de Autor · 8,50 €</div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Espresso Martini</span>
+            <span class="drink-desc">Vodka · Licor de café · Espresso · Sirope de vainilla — intenso y cremoso</span>
+          </div>
+          <span class="drink-price">8,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">White Truffle Negroni</span>
+            <span class="drink-desc">Ginebra · Campari · Vermú rojo · Toque de trufa blanca — elegante y complejo</span>
+          </div>
+          <span class="drink-price">8,50 €</span>
+        </div>
+
+        <div class="drink-row reveal">
+          <div class="drink-info">
+            <span class="drink-name">Paloma</span>
+            <span class="drink-desc">Tequila · Schweppes de pomelo · Granadina · Lima — fresco y vibrante</span>
+          </div>
+          <span class="drink-price">8,50 €</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="ocio" id="ocio">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="line-deco"><span>Más que una copa</span></div>
+      <h2 class="serif">Ocio & <em>Entretenimiento</em></h2>
+      <p>Porque la noche es mejor cuando hay algo más que hacer</p>
+    </div>
+
+    <div class="ocio-grid">
+      <div class="ocio-card reveal">
+        <div class="ocio-icon"><i class="fas fa-futbol"></i></div>
+        <h3 class="serif">Futbolín</h3>
+        <p>Retos, torneos improvisados y partidas épicas. El clásico de los clásicos para animar cualquier noche con amigos.</p>
+      </div>
+      <div class="ocio-card reveal reveal-delay-1">
+        <div class="ocio-icon"><i class="fas fa-bullseye"></i></div>
+        <h3 class="serif">Dardos</h3>
+        <p>Diana profesional para que demuestres tu puntería. Solo o en equipo, un buen set de dardos lo cambia todo.</p>
+      </div>
+      <div class="ocio-card reveal reveal-delay-2">
+        <div class="ocio-icon"><i class="fas fa-dice"></i></div>
+        <h3 class="serif">Juegos de Mesa</h3>
+        <p>Dados, cartas y más. Como dicen nuestros clientes: jugar a los dados en La Cuboteca es un imprescindible.</p>
+      </div>
+    </div>
+
+    <div class="fiestas-banner reveal">
+      <div class="fiestas-text">
+        <span class="eyebrow">Eventos & Celebraciones</span>
+        <h3 class="serif">Reserva el local<br>para tu <em>evento privado</em></h3>
+        <p>¿Cumpleaños, despedida, reunión de empresa, evento especial? La Cuboteca se adapta a ti. Habla directamente con Sergio y lo organizamos todo: carta personalizada, decoración, música y el ambiente más exclusivo de Barajas solo para tu grupo.</p>
+      </div>
+      <div class="fiestas-types">
+        <div class="fiesta-tag"><i class="fas fa-birthday-cake"></i><span>Cumpleaños</span></div>
+        <div class="fiesta-tag"><i class="fas fa-ring"></i><span>Despedidas</span></div>
+        <div class="fiesta-tag"><i class="fas fa-briefcase"></i><span>Empresa</span></div>
+        <div class="fiesta-tag"><i class="fas fa-users"></i><span>Grupos</span></div>
+        <div class="fiesta-tag"><i class="fas fa-star"></i><span>Eventos especiales</span></div>
+        <a href="https://wa.me/34607900842?text=Hola%20Sergio%2C%20quiero%20información%20sobre%20reservar%20el%20local%20para%20un%20evento" target="_blank" rel="noopener" style="margin-top:8px; display:flex; align-items:center; gap:12px; padding:16px 20px; background:var(--gold); text-decoration:none; transition:background 0.3s;" onmouseover="this.style.background='var(--gold-light)'" onmouseout="this.style.background='var(--gold)'">
+          <i class="fab fa-whatsapp" style="color:var(--black); font-size:1.1rem;"></i>
+          <span style="font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:var(--black); font-weight:600;">Consultar disponibilidad</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fotos-local" id="galeria">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="line-deco"><span>Nuestro espacio</span></div>
+      <h2 class="serif">Fotos del <em>Local</em></h2>
+      <p>El ambiente que te espera cada noche en Barajas</p>
+    </div>
+
+    <div class="photos-grid" id="photosGrid">
+
+      <div class="photo-item" data-index="0">
+        <img src="Imagenes/Local.jpeg" alt="El local" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="1">
+        <img src="Imagenes/Localafueraalejado..jpeg" alt="La barra" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="2">
+        <img src="Imagenes/Local terraza.jpeg" alt="Ambiente" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="3">
+        <img src="Imagenes/Dardos.jpeg" alt="Zona lounge" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="4">
+        <img src="Imagenes/futbolin.jpeg" alt="Futbolín" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="5">
+        <img src="Imagenes/Alhambraverde..jpeg" alt="Dardos" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="6">
+        <img src="Imagenes/dobles1.jpeg" alt="Terraza" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+      <div class="photo-item" data-index="7">
+        <img src="Imagenes/Dobles2..jpeg" alt="Detalle del local" onerror="this.closest('.photo-item').style.background='#1a1a1a'">
+        <div class="photo-item-overlay"><i class="fas fa-expand"></i><span>Ver foto</span></div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+  <div class="lightbox-img-wrap">
+    <img id="lightboxImg" src="Imagenes/Local.jpeg" alt="Foto del local">
+    <div class="lightbox-counter" id="lightboxCounter">1 / 8</div>
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<section class="experience">
+  <div class="container">
+    <div class="experience-grid">
+      <div class="experience-text reveal left">
+        <span class="eyebrow">La diferencia</span>
+        <h2 class="serif">Por qué<br>La <em>Cuboteca</em></h2>
+        <p>Más de unas copas. Una experiencia que se recuerda. El servicio de Sergio y el ambiente del local lo hacen único en todo Barajas.</p>
+      </div>
+      <div class="counters-grid reveal right">
+        <div class="counter-item">
+          <i class="fas fa-star" style="font-size:2rem; color:var(--gold); display:block; margin-bottom:16px;"></i>
+          <strong style="display:block; font-size:1.1rem; color:var(--white); letter-spacing:1px; margin-bottom:6px;">4,1 Estrellas en Google</strong>
+          <span class="counter-label">Valoración máxima de nuestros clientes</span>
+        </div>
+        <div class="counter-item">
+          <i class="fas fa-calendar-check" style="font-size:2rem; color:var(--gold); display:block; margin-bottom:16px;"></i>
+          <strong style="display:block; font-size:1.1rem; color:var(--white); letter-spacing:1px; margin-bottom:6px;">Abierto 7 días</strong>
+          <span class="counter-label">De lunes a domingo sin excepción</span>
+        </div>
+        <div class="counter-item">
+          <i class="fas fa-clock" style="font-size:2rem; color:var(--gold); display:block; margin-bottom:16px;"></i>
+          <strong style="display:block; font-size:1.1rem; color:var(--white); letter-spacing:1px; margin-bottom:6px;">Desde las 19:00h</strong>
+          <span class="counter-label">La noche empieza cuando tú llegues</span>
+        </div>
+        <div class="counter-item">
+          <i class="fas fa-heart" style="font-size:2rem; color:var(--gold); display:block; margin-bottom:16px;"></i>
+          <strong style="display:block; font-size:1.1rem; color:var(--white); letter-spacing:1px; margin-bottom:6px;">Trato cercano</strong>
+          <span class="counter-label">Sergio te atiende siempre en persona</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="line-deco"><span>Nuestros clientes hablan</span></div>
+      <h2 class="serif">La <em>mejor</em> crítica</h2>
+      <p>La opinión de quienes ya vivieron la experiencia</p>
+    </div>
+    <div class="testimonials-slider">
+      <div class="test-card reveal">
+        <div class="test-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="test-text">"Tenés que probar el fernet con cola! Demasiado buen ambiente. La amabilidad y buen servicio da gusto. Jugar a los dados sí o sí."</p>
+        <p class="test-author">Romina Reales</p>
+        <p class="test-role">Cliente habitual</p>
+      </div>
+      <div class="test-card reveal reveal-delay-1">
+        <div class="test-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="test-text">"Estoy recién llegada a Madrid y este lugar en particular me encantó, la hospitalidad de Sergio y el buen ambiente sin duda me hará volver."</p>
+        <p class="test-author">Antonella Rodriguez</p>
+        <p class="test-role">Nueva en Madrid</p>
+      </div>
+      <div class="test-card reveal reveal-delay-2">
+        <div class="test-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="test-text">"El dueño Sergio es encantador, nos sentimos bien recibidas desde que entramos. Es como estar en casa, repetiremos siempre."</p>
+        <p class="test-author">Marta Martinez</p>
+        <p class="test-role">Cliente de siempre</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal left">
+        <div class="contact-info">
+          <span class="eyebrow">Reservas & Contacto</span>
+          <h2 class="serif">Reserva<br>tu <em>noche</em></h2>
+          <p>El ambiente más exclusivo de Barajas te espera. Contacta con Sergio para asegurar tu espacio en nuestra zona lounge.</p>
+        </div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="icon-box"><i class="fas fa-location-dot"></i></div>
+            <div>
+              <h4>Ubicación</h4>
+              <p>C. Noray, 9<br>28042 Barajas, Madrid</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box"><i class="fas fa-clock"></i></div>
+            <div>
+              <h4>Horario</h4>
+              <p>Lunes a Domingo<br>Desde las 19:00h</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box"><i class="fab fa-instagram"></i></div>
+            <div>
+              <h4>Instagram</h4>
+              <a href="https://www.instagram.com/lacuboteca1/" target="_blank" rel="noopener">@lacuboteca1</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal right">
+        <div class="contact-cta-box">
+          <div>
+            <p style="font-size:0.65rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; font-weight:500;">Atención directa con Sergio</p>
+            <p style="color:var(--muted); font-size:0.9rem; line-height:1.7; font-weight:300;">La forma más rápida de reservar tu mesa o consultar disponibilidad. Respuesta inmediata.</p>
+          </div>
+          <a href="https://wa.me/34607900842" target="_blank" rel="noopener" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <div class="whatsapp-btn-text">
+              <span>Contactar ahora</span>
+              <strong>607 90 08 42</strong>
+            </div>
+          </a>
+          <p class="contact-note">"Cada reserva es especial para nosotros. Cuéntame qué tienes en mente y lo preparamos todo."<br>— Sergio, propietario de La Cuboteca</p>
+          <div class="map-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3034.407758362678!2d-3.582845684603932!3d40.47352397935817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422e6b219fb097%3A0xc6c4f03dfbc6fba3!2sC.%20Noray%2C%209%2C%20Barajas%2C%2028042%20Madrid!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación La Cuboteca"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vibe-banner">
+  <div class="vibe-bg"></div>
+  <div class="container vibe-inner reveal">
+    <div class="vibe-left">
+      <span class="vibe-tag">Cada noche · Desde las 19h</span>
+      <h2 class="serif">El sitio donde<br>la noche <em>empieza</em><br>de verdad</h2>
+    </div>
+    <div class="vibe-right">
+      <div class="vibe-item"><i class="fas fa-beer-mug-empty"></i><span>Cubos bien fríos siempre listos</span></div>
+      <div class="vibe-item"><i class="fas fa-music"></i><span>Música y ambiente cada noche</span></div>
+      <div class="vibe-item"><i class="fas fa-futbol"></i><span>Futbolín · Dardos · Dados</span></div>
+      <div class="vibe-item"><i class="fas fa-map-marker-alt"></i><span>En el corazón de Barajas</span></div>
+      <a href="https://wa.me/34607900842" target="_blank" rel="noopener" class="btn-primary" style="margin-top:8px; display:inline-block;"><span>Reservar ahora</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+
+    <div class="footer-social-big">
+      <a href="https://www.instagram.com/lacuboteca1/" target="_blank" rel="noopener" class="social-big-btn ig" aria-label="Síguenos en Instagram">
+        <i class="fab fa-instagram social-big-btn-icon"></i>
+        <div class="social-big-btn-text">
+          <span>Síguenos en</span>
+          <strong>@lacuboteca1</strong>
+        </div>
+      </a>
+      <a href="https://wa.me/34607900842" target="_blank" rel="noopener" class="social-big-btn wa" aria-label="Escríbenos por WhatsApp">
+        <i class="fab fa-whatsapp social-big-btn-icon"></i>
+        <div class="social-big-btn-text">
+          <span>Reservas por</span>
+          <strong>607 90 08 42</strong>
+        </div>
+      </a>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-logo-area">
+        <a href="#inicio" class="footer-logo">La Cuboteca</a>
+        <span class="footer-tagline">Lounge Bar · Barajas, Madrid</span>
+      </div>
+      <div class="footer-center">
+        <div class="footer-info-block">
+          <div class="footer-info-item">
+            <i class="fas fa-clock"></i>
+            <span>Lun — Dom · Desde las 19:00h</span>
+          </div>
+          <div class="footer-info-item">
+            <i class="fas fa-location-dot"></i>
+            <span>C. Noray, 9 · Barajas, Madrid</span>
+          </div>
+          <div class="footer-info-item">
+            <i class="fas fa-phone"></i>
+            <a href="tel:+34607900842">607 90 08 42</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/lacuboteca1/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/34607900842" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 La Cuboteca · Todos los derechos reservados</p>
+      <p>C. Noray, 9 · 28042 Barajas, Madrid</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  if (ring) {
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  }
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a, button, .offer-card, .menu-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { if(ring){ ring.style.width='56px'; ring.style.height='56px'; ring.style.opacity='0.4'; } });
+  el.addEventListener('mouseleave', () => { if(ring){ ring.style.width='36px'; ring.style.height='36px'; ring.style.opacity='0.7'; } });
+});
+
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── MOBILE MENU ──
+const mobileBtn = document.getElementById('mobileBtn');
+const navLinks = document.getElementById('navLinks');
+const mobileIcon = document.getElementById('mobileIcon');
+mobileBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  mobileIcon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    mobileIcon.className = 'fas fa-bars';
+  });
+});
+
+// ── TABS CARTA ──
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.menu-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+    document.getElementById('pane-' + tab.dataset.tab).classList.add('active');
+    // re-trigger reveals
+    document.querySelectorAll('#pane-' + tab.dataset.tab + ' .reveal').forEach(el => {
+      el.classList.remove('active');
+      setTimeout(() => el.classList.add('active'), 80);
+    });
+  });
+});
+
+// ── LIGHTBOX CON NAVEGACIÓN ──
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+const lightboxCounter = document.getElementById('lightboxCounter');
+const emptyState = document.getElementById('emptyState');
+
+const photoItems = Array.from(document.querySelectorAll('.photo-item'));
+let currentIndex = 0;
+
+const hasPhotos = photoItems.some(p => {
+  const img = p.querySelector('img');
+  return img && img.getAttribute('src') && !img.getAttribute('src').includes('undefined');
+});
+if (hasPhotos && emptyState) emptyState.style.display = 'none';
+
+function openLightbox(index) {
+  const imgs = photoItems.map(p => p.querySelector('img'));
+  if (!imgs[index]) return;
+  currentIndex = index;
+  lightboxImg.src = imgs[index].src;
+  lightboxCounter.textContent = (index + 1) + ' / ' + photoItems.length;
+  lightbox.classList.add('open');
+}
+function navigate(dir) {
+  currentIndex = (currentIndex + dir + photoItems.length) % photoItems.length;
+  const imgs = photoItems.map(p => p.querySelector('img'));
+  lightboxImg.src = imgs[currentIndex].src;
+  lightboxCounter.textContent = (currentIndex + 1) + ' / ' + photoItems.length;
+}
+
+photoItems.forEach((item, i) => {
+  item.addEventListener('click', () => openLightbox(i));
+});
+
+lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+lightboxPrev.addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+lightboxNext.addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') lightbox.classList.remove('open');
+  if (e.key === 'ArrowLeft') navigate(-1);
+  if (e.key === 'ArrowRight') navigate(1);
+});
+
+// ── REVEAL SCROLL ──
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('active'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>
